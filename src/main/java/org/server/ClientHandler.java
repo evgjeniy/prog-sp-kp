@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClientHandler implements Runnable {
 
@@ -30,10 +31,13 @@ public class ClientHandler implements Runnable {
                 Request requestType = requestMapper.receive();
                 requestMapper.map(requestType);
             }
-
-            clientSocket.close();
+        } catch (SocketCloseException ex) {
+            try { clientSocket.close(); }
+            catch (IOException e) { throw new RuntimeException(e); }
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
+
+    public static class SocketCloseException extends SocketException {}
 }

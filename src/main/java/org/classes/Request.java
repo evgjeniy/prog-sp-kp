@@ -2,5 +2,11 @@ package org.classes;
 
 public enum Request {
     login,
-    getUserById, getAllClients, getUserByLogin, insertUser, deleteById, updateUser,
+    logout,
+    getUserById,
+    getAllClients,
+    getUserByLogin,
+    insertUser,
+    deleteById,
+    updateUser,
 }

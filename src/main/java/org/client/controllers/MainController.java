@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import org.client.ClientStartup;
 import org.client.services.TabMapper;
+import org.server.models.User;
 
 public class MainController {
     public TabPane mainTabPane;
@@ -14,18 +15,17 @@ public class MainController {
     }
 
     public void loadTabs() {
-        String userRoleName = ClientStartup.clientAuthorization.getUser().getRole().getName();
+        User currentUser = ClientStartup.clientAuthorization.getUser();
+        PersonalAccountController.instance.setUserPersonalData(currentUser);
 
         mainTabPane.getTabs().clear();
-        switch (userRoleName) {
+        switch (currentUser.getRole().getName()) {
             case "User" -> {
-
+                addTab(TabMapper.TabKey.personalAccountPage);
             }
-            case "Admin" -> {
+            case "Admin", "Manager" -> {
+                addTab(TabMapper.TabKey.personalAccountPage);
                 addTab(TabMapper.TabKey.employeesPage);
-            }
-            case "Manager" -> {
-
             }
         }
     }

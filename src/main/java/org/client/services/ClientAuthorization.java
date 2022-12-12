@@ -1,7 +1,7 @@
 package org.client.services;
 
-import org.classes.LoginForm;
 import org.classes.Request;
+import org.client.ClientStartup;
 import org.server.models.User;
 
 import java.io.IOException;
@@ -28,11 +28,7 @@ public class ClientAuthorization {
         return currentUser != null;
     }
 
-    public void logOut() {
-        if (isLoggedIn()) {
-            // Making logOut request
-        }
-
-        currentUser = null;
+    public void logOut() throws IOException {
+        if (isLoggedIn()) { currentUser = null; }
     }
 }

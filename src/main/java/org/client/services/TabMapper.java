@@ -10,8 +10,9 @@ import java.util.Hashtable;
 import java.util.Objects;
 
 public class TabMapper {
-    public static enum TabKey {
-        employeesPage("employeesPage.fxml");
+    public enum TabKey {
+        employeesPage("employeesPage.fxml"),
+        personalAccountPage("personalAccount.fxml");
 
         private final String value;
         public String getValue() { return this.value; }
@@ -28,8 +29,10 @@ public class TabMapper {
 
     private void loadTabs() {
         try {
-            tabs.put(TabKey.employeesPage, FXMLLoader.load(
-                    Objects.requireNonNull(ClientStartup.class.getResource(TabKey.employeesPage.getValue()))));
+            tabs.put(TabKey.employeesPage, FXMLLoader.load(Objects.requireNonNull(
+                    ClientStartup.class.getResource(TabKey.employeesPage.getValue()))));
+            tabs.put(TabKey.personalAccountPage, FXMLLoader.load(Objects.requireNonNull(
+                    ClientStartup.class.getResource(TabKey.personalAccountPage.getValue()))));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

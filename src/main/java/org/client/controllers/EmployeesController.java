@@ -44,7 +44,7 @@ public class EmployeesController {
     }
 
     private void loadEmployees() throws IOException, ClassNotFoundException {
-        ClientStartup.requestMapper.make(Request.getAllClients, null);
+        ClientStartup.requestMapper.make(Request.getAllClients);
         ArrayList<User> users = ClientStartup.requestMapper.receive();
 
         employeesListValues = FXCollections.observableList(users);
@@ -71,6 +71,7 @@ public class EmployeesController {
 
     public void showDetailsInfo(MouseEvent mouseEvent) {
         String searchable = employeeListViews.getSelectionModel().getSelectedItem();
+        if (searchable == null) return;
 
         List<User> result = employeesListValues.stream().filter(x -> x.getFullName().contains(searchable)).toList();
         if (result.size() > 0) setDetails(result.get(0));

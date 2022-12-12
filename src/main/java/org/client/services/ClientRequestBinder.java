@@ -16,17 +16,16 @@ public class ClientRequestBinder {
         instance = this;
     }
 
+    public void make(Request requestType) throws IOException {
+        make(requestType, null);
+    }
+
     public void make(Request requestType, Object data) throws IOException {
         outputStream.writeObject(requestType);
 
-        switch (requestType) {
-            case login -> outputStream.writeObject(data);
-            case getUserById -> outputStream.writeObject(data);
-            case getUserByLogin -> outputStream.writeObject(data);
-            case insertUser -> outputStream.writeObject(data);
-            case deleteById -> outputStream.writeObject(data);
-            case updateUser -> outputStream.writeObject(data);
-        }
+        if (data == null) return;
+
+        outputStream.writeObject(data);
     }
 
     public <T> T receive() throws IOException, ClassNotFoundException {

@@ -55,7 +55,7 @@
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Label fx:id="errorMessage" textFill="RED" />
+                <Label fx:id="errorMessage" textFill="red" />
             </children>
         </HBox>
     </children>

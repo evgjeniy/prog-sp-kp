@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.classes.Request;
 import org.client.services.ClientRequestBinder;
+import org.client.services.Validator;
 import org.server.models.Employee;
 import org.server.models.Role;
 import org.server.models.User;
@@ -79,10 +80,10 @@ public class EmployeeAddingController {
         submitButton.setText("Добавить");
         submitButton.setOnAction(e -> {
             try {
-                if (!validateUserProperties(true)) return;
+                if (!validateUserProperties()) return;
 
-                setAddingMode();
                 ClientRequestBinder.instance.make(Request.insertUser, getUserFromFields());
+                setAddingMode();
                 if (ClientRequestBinder.instance.receive()) EmployeesController.instance.reloadPage();
             } catch (IOException | ClassNotFoundException ignored) {}
         });
@@ -105,7 +106,7 @@ public class EmployeeAddingController {
         submitButton.setText("Сохранить");
         submitButton.setOnAction(e -> {
             try {
-                if (!validateUserProperties(false)) return;
+                if (!validateUserProperties()) return;
 
                 User userToUpdate = getUserFromFields();
                 userToUpdate.setId(user.getId());
@@ -116,34 +117,32 @@ public class EmployeeAddingController {
         });
     }
 
-    private boolean validateUserProperties(boolean withLoginExistingCheck) throws IOException, ClassNotFoundException {
-        Pattern namePattern = Pattern.compile("^[A-ZА-Я][a-zа-я]+$");
-        if (!namePattern.matcher(nameField.getText()).matches()) {
+    private boolean validateUserProperties() throws IOException, ClassNotFoundException {
+        if (!Validator.name(nameField.getText())) {
             errorMessage.setText("Неверный формат имени");
             return false;
         }
-        if (!namePattern.matcher(surnameField.getText()).matches()) {
+        if (!Validator.name(surnameField.getText())) {
             errorMessage.setText("Неверный формат фамилии");
             return false;
         }
-        if (!Pattern.compile("^(19|20)?[0-9]{2}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$").
-                matcher(birthdayField.getText()).matches()) {
+        if (!Validator.sqlDate(birthdayField.getText())) {
             errorMessage.setText("Неверный формат даты");
             return false;
         }
-        if (!Pattern.compile("^[[A-ZА-Я][a-zа-я]+ ?]+$").matcher(postField.getText()).matches()) {
+        if (!Validator.post(postField.getText())) {
             errorMessage.setText("Неверный формат должности");
             return false;
         }
-        if (!Pattern.compile("^[0-9]+.[0-9]{2}$").matcher(salaryField.getText()).matches()) {
+        if (!Validator.salary(salaryField.getText())) {
             errorMessage.setText("Неверный формат зарплаты");
             return false;
         }
-        if (role == null) {
+        if (!Validator.role(role)) {
             errorMessage.setText("Не выбран уровень доступа");
             return false;
         }
-        if (!Pattern.compile("^[A-Za-z]{6,20}$").matcher(loginField.getText()).matches()) {
+        if (!Validator.login(loginField.getText())) {
             errorMessage.setText("Неверный формат логина\n(от 6 до 20 лат. символов)");
             return false;
         } else {
@@ -154,13 +153,11 @@ public class EmployeeAddingController {
                 return false;
             }
         }
-        if (!Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,20}$").
-                matcher(passwordField.getText()).matches()) {
+        if (!Validator.password(passwordField.getText())) {
             errorMessage.setText("Пароль должен быть размером [8;20]\nСодержать символы: [0-9],[a-z],[A-Z]");
             return false;
         }
-        if (!Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
-                "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$").matcher(mailField.getText()).matches()) {
+        if (!Validator.mail(mailField.getText())) {
             errorMessage.setText("Неверный формат EMail");
             return false;
         }

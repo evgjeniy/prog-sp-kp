@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Tab closable="false" text="Личный кабинет" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.client.controllers.PersonalAccountController">
+   <content>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <VBox prefHeight="355.0" prefWidth="416.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label fx:id="title" text="Личный кабинет">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0">
+                     <children>
+                        <VBox spacing="14.0">
+                           <children>
+                              <Label text="Имя:" />
+                              <Label text="Фамилия:" />
+                              <Label layoutX="10.0" layoutY="47.0" text="Дата рождения:" />
+                              <Label layoutX="10.0" layoutY="121.0" text="Логин:" /><Label layoutX="10.0" layoutY="196.0" text="Пароль:" />
+                              <Label layoutX="10.0" layoutY="202.0" text="Почта:" /><Label layoutX="10.0" layoutY="165.0" text="Зарплата:" /><Label layoutX="10.0" layoutY="196.0" text="Должность" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="241.0" prefWidth="255.0" spacing="5.0">
+                           <children>
+                              <TextField fx:id="nameField" promptText="Имя сотрудника" />
+                              <TextField fx:id="surnameField" layoutX="10.0" layoutY="10.0" promptText="Фамилия сотрудника" />
+                              <TextField fx:id="birthdayField" layoutX="10.0" layoutY="50.0" promptText="Дата рождения (yyyy-mm-dd)" />
+                              <TextField fx:id="loginField" layoutX="10.0" layoutY="170.0" promptText="Логин сотрудника" />
+                              <TextField fx:id="passwordField" layoutX="10.0" layoutY="190.0" promptText="Пароль" />
+                              <TextField fx:id="mailField" layoutX="10.0" layoutY="190.0" promptText="Почта сотрудника" />
+                              <Label fx:id="salaryLabel">
+                                 <padding><Insets bottom="5.0" top="5.0" /></padding>
+                              </Label>
+                              <Label fx:id="postLabel" layoutX="10.0" layoutY="190.0">
+                                 <padding><Insets bottom="5.0" top="5.0" /></padding>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="30.0">
+                     <children>
+                        <Label fx:id="errorMessage" textFill="red"/>
+                        <Button fx:id="saveButton" mnemonicParsing="false" text="Сохранить данные" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets left="100.0" />
+                           </opaqueInsets><HBox.margin><Insets /></HBox.margin><padding><Insets bottom="5.0" left="30.0" right="30.0" top="5.0" /></padding>
+                        </Button>
+                        <Button fx:id="exitButton" mnemonicParsing="false" text="Выход" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font><opaqueInsets><Insets left="100.0" /></opaqueInsets><HBox.margin><Insets /></HBox.margin><padding><Insets bottom="5.0" left="30.0" right="30.0" top="5.0" /></padding>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</Tab>
