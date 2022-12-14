@@ -2,13 +2,7 @@
 
 <?import javafx.scene.control.*?>
 
-<TabPane fx:id="mainTabPane"
-         maxHeight="-Infinity"
-         maxWidth="-Infinity"
-         minHeight="-Infinity"
-         minWidth="-Infinity"
-         prefHeight="400.0"
-         prefWidth="600.0"
-         xmlns="http://javafx.com/javafx"
-         xmlns:fx="http://javafx.com/fxml"
+<TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="400.0" prefWidth="600.0"
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
          fx:controller="org.client.controllers.MainController"/>

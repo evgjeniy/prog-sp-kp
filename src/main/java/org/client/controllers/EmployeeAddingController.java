@@ -6,13 +6,10 @@ import javafx.scene.control.*;
 import org.classes.Request;
 import org.client.services.ClientRequestBinder;
 import org.client.services.Validator;
-import org.server.models.Employee;
-import org.server.models.Role;
-import org.server.models.User;
+import org.server.models.*;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.regex.Pattern;
 
 public class EmployeeAddingController {
     public static EmployeeAddingController instance;

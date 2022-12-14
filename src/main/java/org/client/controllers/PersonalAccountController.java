@@ -35,6 +35,7 @@ public class PersonalAccountController {
 
         saveButton.setOnAction(this::saveUserData);
         exitButton.setOnAction(this::logout);
+        setUserPersonalData(ClientStartup.clientAuthorization.getUser());
     }
 
     public void setUserPersonalData(User user) {

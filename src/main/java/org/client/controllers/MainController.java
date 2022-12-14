@@ -16,14 +16,17 @@ public class MainController {
 
     public void loadTabs() {
         User currentUser = ClientStartup.clientAuthorization.getUser();
-        PersonalAccountController.instance.setUserPersonalData(currentUser);
 
         mainTabPane.getTabs().clear();
         switch (currentUser.getRole().getName()) {
             case "User" -> {
                 addTab(TabMapper.TabKey.personalAccountPage);
             }
-            case "Admin", "Manager" -> {
+            case "Manager" -> {
+                addTab(TabMapper.TabKey.personalAccountPage);
+                addTab(TabMapper.TabKey.projectsPage);
+            }
+            case "Admin" -> {
                 addTab(TabMapper.TabKey.personalAccountPage);
                 addTab(TabMapper.TabKey.employeesPage);
             }

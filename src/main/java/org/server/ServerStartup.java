@@ -1,5 +1,6 @@
 package org.server;
 
+import org.server.daos.ProjectDao;
 import org.server.daos.UserDao;
 import org.server.db_connection.DbSessionFactory;
 
@@ -9,6 +10,7 @@ import java.net.Socket;
 
 public class ServerStartup {
     public static final UserDao userDao = new UserDao();
+    public static final ProjectDao projectDao = new ProjectDao();
 
     public static void main(String[] port) {
         Socket clientSocket = null;

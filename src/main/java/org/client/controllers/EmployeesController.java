@@ -27,7 +27,7 @@ public class EmployeesController {
     public VBox cachedDetailsBox;
     public VBox cachedAddingBox;
 
-    ObservableList<User> employeesListValues = FXCollections.observableArrayList();
+    private ObservableList<User> employeesListValues;
 
     @FXML
     private void initialize() throws IOException, ClassNotFoundException {

@@ -12,7 +12,8 @@ import java.util.Objects;
 public class TabMapper {
     public enum TabKey {
         employeesPage("employeesPage.fxml"),
-        personalAccountPage("personalAccount.fxml");
+        personalAccountPage("personalAccount.fxml"),
+        projectsPage("projectsPage.fxml");
 
         private final String value;
         public String getValue() { return this.value; }
@@ -20,25 +21,24 @@ public class TabMapper {
     }
 
 
-    private final Dictionary<TabKey, Tab> tabs;
-
-    public TabMapper() {
-        tabs = new Hashtable<>();
-        loadTabs();
-    }
+    private Dictionary<TabKey, Tab> tabs;
 
     private void loadTabs() {
+        tabs = new Hashtable<>();
         try {
             tabs.put(TabKey.employeesPage, FXMLLoader.load(Objects.requireNonNull(
                     ClientStartup.class.getResource(TabKey.employeesPage.getValue()))));
             tabs.put(TabKey.personalAccountPage, FXMLLoader.load(Objects.requireNonNull(
                     ClientStartup.class.getResource(TabKey.personalAccountPage.getValue()))));
+            tabs.put(TabKey.projectsPage, FXMLLoader.load(Objects.requireNonNull(
+                    ClientStartup.class.getResource(TabKey.projectsPage.getValue()))));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public Tab getTab(TabKey tabKey) {
+        if (tabs == null) loadTabs();
         return tabs.get(tabKey);
     }
 }

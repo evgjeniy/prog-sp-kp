@@ -17,9 +17,7 @@
             <VBox prefHeight="355.0" prefWidth="416.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label fx:id="title" text="Личный кабинет">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     <font><Font size="20.0" /></font>
                   </Label>
                   <HBox alignment="CENTER_LEFT" spacing="30.0">
                      <children>
@@ -40,12 +38,8 @@
                               <TextField fx:id="loginField" layoutX="10.0" layoutY="170.0" promptText="Логин сотрудника" />
                               <TextField fx:id="passwordField" layoutX="10.0" layoutY="190.0" promptText="Пароль" />
                               <TextField fx:id="mailField" layoutX="10.0" layoutY="190.0" promptText="Почта сотрудника" />
-                              <Label fx:id="salaryLabel">
-                                 <padding><Insets bottom="5.0" top="5.0" /></padding>
-                              </Label>
-                              <Label fx:id="postLabel" layoutX="10.0" layoutY="190.0">
-                                 <padding><Insets bottom="5.0" top="5.0" /></padding>
-                              </Label>
+                              <Label fx:id="salaryLabel"><padding><Insets bottom="5.0" top="5.0" /></padding></Label>
+                              <Label fx:id="postLabel" layoutX="10.0" layoutY="190.0"><padding><Insets bottom="5.0" top="5.0" /></padding></Label>
                            </children>
                         </VBox>
                      </children>
@@ -54,24 +48,21 @@
                      <children>
                         <Label fx:id="errorMessage" textFill="red"/>
                         <Button fx:id="saveButton" mnemonicParsing="false" text="Сохранить данные" textAlignment="CENTER">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets left="100.0" />
-                           </opaqueInsets><HBox.margin><Insets /></HBox.margin><padding><Insets bottom="5.0" left="30.0" right="30.0" top="5.0" /></padding>
+                           <font><Font size="14.0" /></font>
+                           <opaqueInsets><Insets left="100.0" /></opaqueInsets>
+                           <HBox.margin><Insets /></HBox.margin>
+                           <padding><Insets bottom="5.0" left="30.0" right="30.0" top="5.0" /></padding>
                         </Button>
                         <Button fx:id="exitButton" mnemonicParsing="false" text="Выход" textAlignment="CENTER">
-                           <font>
-                              <Font size="14.0" />
-                           </font><opaqueInsets><Insets left="100.0" /></opaqueInsets><HBox.margin><Insets /></HBox.margin><padding><Insets bottom="5.0" left="30.0" right="30.0" top="5.0" /></padding>
+                           <font><Font size="14.0" /></font>
+                           <opaqueInsets><Insets left="100.0" /></opaqueInsets>
+                           <HBox.margin><Insets /></HBox.margin>
+                           <padding><Insets bottom="5.0" left="30.0" right="30.0" top="5.0" /></padding>
                         </Button>
                      </children>
                   </HBox>
                </children>
-               <padding>
-                  <Insets left="20.0" right="20.0" top="10.0" />
-               </padding>
+               <padding><Insets left="20.0" right="20.0" top="10.0" /></padding>
             </VBox>
          </children>
       </AnchorPane>

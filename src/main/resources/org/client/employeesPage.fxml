@@ -13,38 +13,31 @@
 <?import javafx.scene.layout.Pane?>
 
 <Tab closable="false" text="Сотрудники" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.client.controllers.EmployeesController">
-    <content>
-        <SplitPane dividerPositions="0.3" prefHeight="160.0" prefWidth="200.0">
-            <items>
-                <VBox prefHeight="200.0" prefWidth="100.0">
-                    <children>
-                        <TextField fx:id="searchField" onAction="#searchByName" promptText="Поиск:" />
-                        <ScrollPane VBox.vgrow="SOMETIMES">
-                            <VBox.margin><Insets /></VBox.margin>
-                            <content>
-                                <AnchorPane prefHeight="344.0" prefWidth="175.0">
-                                    <children>
-                                        <ListView
-                                                fx:id="employeeListViews"
-                                                onMouseClicked="#showDetailsInfo"
-                                                AnchorPane.bottomAnchor="0.0"
-                                                AnchorPane.leftAnchor="0.0"
-                                                AnchorPane.rightAnchor="0.0"
-                                                AnchorPane.topAnchor="0.0"
-                                                style="-fx-color-label-visible: #E65912;"/>
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </ScrollPane>
-                            <Button onAction="#showAddingPane" mnemonicParsing="false" prefWidth="207.0" text="Добавить">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Button>
-                    </children>
-                </VBox>
-                <Pane fx:id="rightPane" prefHeight="371.0" prefWidth="417.0"/>
-            </items>
-        </SplitPane>
-    </content>
+   <content>
+      <SplitPane dividerPositions="0.3" prefHeight="160.0" prefWidth="200.0">
+         <items>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField fx:id="searchField" onAction="#searchByName" promptText="Поиск" alignment="CENTER" >
+                     <font><Font size="14.0" /></font>
+                  </TextField>
+                  <ScrollPane VBox.vgrow="SOMETIMES">
+                     <VBox.margin><Insets /></VBox.margin>
+                     <content>
+                        <AnchorPane prefHeight="344.0" prefWidth="175.0">
+                           <children>
+                              <ListView fx:id="employeeListViews" onMouseClicked="#showDetailsInfo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-color-label-visible: #E65912;"/>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                     <Button onAction="#showAddingPane" mnemonicParsing="false" prefWidth="207.0" text="Добавить">
+                        <font><Font size="14.0" /></font>
+                     </Button>
+               </children>
+            </VBox>
+            <Pane fx:id="rightPane" prefHeight="371.0" prefWidth="417.0"/>
+         </items>
+      </SplitPane>
+   </content>
 </Tab>

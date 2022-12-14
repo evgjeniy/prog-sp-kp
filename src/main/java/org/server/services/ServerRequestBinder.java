@@ -1,7 +1,6 @@
 package org.server.services;
 
 import org.classes.Request;
-import org.server.ClientHandler;
 import org.server.ServerStartup;
 import org.server.models.User;
 
@@ -47,6 +46,9 @@ public class ServerRequestBinder {
             case updateUser -> {
                 User user = (User) inputStream.readObject();
                 outputStream.writeObject(ServerStartup.userDao.update(user));
+            }
+            case getAllProjects -> {
+                outputStream.writeObject(new ArrayList<>(ServerStartup.projectDao.get()));
             }
         }
     }

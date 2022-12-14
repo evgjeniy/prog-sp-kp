@@ -4,9 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.server.models.Employee;
-import org.server.models.Role;
-import org.server.models.User;
+import org.server.models.*;
 
 public class DbSessionFactory {
     private static SessionFactory sessionFactory;
@@ -16,6 +14,8 @@ public class DbSessionFactory {
             Configuration configuration = new Configuration().configure();
 
             // --- add annotation model classes to configuration ---
+            configuration.addAnnotatedClass(Project.class);
+            configuration.addAnnotatedClass(Status.class);
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Role.class);
             configuration.addAnnotatedClass(Employee.class);
