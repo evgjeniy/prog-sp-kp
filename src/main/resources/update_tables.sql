@@ -6,6 +6,9 @@ drop table if exists employees
 drop table if exists statuses
 drop table if exists projects
 drop table if exists employees_projects
+drop table if exists candidates
+drop table if exists vacancies
+drop table if exists vacancies_candidates
 
 create table roles (
     role_id int identity primary key,
@@ -35,16 +38,12 @@ create table projects (
     deadline date,
     todo varchar(8000),
 
-    foreign key (status_id) references statuses(id)
+    constraint fk_project_status foreign key (status_id) references statuses(id)
 )
 
 create table employees_projects (
-    employee_id int
-        constraint fk_employee_projects_employees_id
-            references employees,
-    project_id int
-        constraint fk_employee_projects_projects_id
-            references projects
+    employee_id int constraint fk_employee_projects_employees_id references employees(employee_id),
+    project_id int constraint fk_employee_projects_projects_id references projects(id)
 )
 
 create table users (
@@ -55,8 +54,28 @@ create table users (
     role_id int default(1),
     employee_id int,
 
-    foreign key (role_id) references roles(role_id) on delete set null,
+    constraint fk_user_role foreign key (role_id) references roles(role_id) on delete set null,
     constraint fk_user_employee foreign key (employee_id) references employees(employee_id) on delete cascade
+)
+
+create table candidates (
+    id int identity primary key,
+    name varchar(50),
+    surname varchar(50),
+    birthday date,
+    mail varchar(100)
+)
+
+create table vacancies (
+    id int identity primary key,
+    post varchar(50),
+    description varchar(8000),
+    salary float,
+)
+
+create table vacancies_candidates (
+    vacancy_id int constraint fk_vacancies_candidates_vacancy_id references vacancies(id),
+    candidate_id int constraint fk_vacancies_candidates_candidates_id references candidates(id)
 )
 
 insert into roles (role_name) values ('User')
@@ -106,3 +125,40 @@ insert into users (login, password, salt, role_id, employee_id) values ('yanishk
 insert into employees_projects (employee_id, project_id) values (1, 1)
 insert into employees_projects (employee_id, project_id) values (3, 1)
 insert into employees_projects (employee_id, project_id) values (2, 2)
+
+insert into vacancies (post, description, salary)
+values ('.NET Developer', N'Обязанности:
+- Разработка ПО на .Net Framework/Core;
+- Анализ требований и участие в технической оценке с учетом новых бизнес-требований.
+
+Требования:
+- 2+ года коммерческой разработки под .Net;
+- Знание .NET 6, C#, принципов OOP, веб-разработки, ASP.NET/ASP.NET MVC, Entity Framework, MSSQL Server 2008+, HTML / CSS;
+- Опыт работы с системами контроля версий (Git), Continuous Integration, Task Trackers.
+
+Будет плюсом:
+- Понимание архитектуры микросервисов;
+- Опыт работы с высоконагруженными системами;
+- Базовое знание ОС Linux, Docker, Kubernetes;
+- Опыт работы с JS Frameworks (e.g. Angular, Vue, React);
+- Практика использования Message Queue систем (RabbitMQ, MSMQ).
+
+Что мы предлагаем:
+- оформление по ТК РБ;
+- врач-терапевт в офисе;
+- компенсация до 30 дней больничных в год;
+- корпоративные мероприятия и тимбилдинги;
+- тренажерный зал с тренерами в офисе компании;
+- компенсация расходов на спортивные абонементы;
+- обучение: внутренние и внешние семинары, тренинги;
+- расширенный полис ДМС (включая стоматологию и оплату лекарств);
+- комнаты отдыха и кухни на этажах (чай, кофе, вода, снеки, свежие фрукты);
+- компенсация стоимости питания в корпоративной столовой или доставки еды в офис;
+- подарки и выплаты сотрудникам на значимые даты (первый день в компании, день рождения, свадьба, рождение детей);
+- доставка сотрудников корпоративными шаттлами метро <-> офис «Волна» (Минск, Партизанский проспект, 178/2).', 3490.00)
+
+insert into candidates (name, surname, birthday, mail) values (N'Евгений', N'Кудрявцев', '2002-01-06', 'kudriavtsev@mail.ru')
+insert into candidates (name, surname, birthday, mail) values (N'Даниил', N'Боев', '2002-10-10', 'kudriavtsev@mail.ru')
+
+insert into vacancies_candidates (vacancy_id, candidate_id) values (1, 1);
+insert into vacancies_candidates (vacancy_id, candidate_id) values (1, 2);

@@ -1,8 +1,11 @@
 package org.server;
 
+import org.server.daos.CandidateDao;
 import org.server.daos.ProjectDao;
 import org.server.daos.UserDao;
+import org.server.daos.VacancyDao;
 import org.server.db_connection.DbSessionFactory;
+import org.server.models.User;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,6 +14,8 @@ import java.net.Socket;
 public class ServerStartup {
     public static final UserDao userDao = new UserDao();
     public static final ProjectDao projectDao = new ProjectDao();
+    public static final VacancyDao vacancyDao = new VacancyDao();
+    public static final CandidateDao candidateDao = new CandidateDao();
 
     public static void main(String[] port) {
         Socket clientSocket = null;

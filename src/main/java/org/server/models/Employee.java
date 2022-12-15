@@ -60,6 +60,8 @@ public class Employee implements Serializable {
     public void setUser(User user) { this.user = user; }
     public void setProjects(Set<Project> projects) { this.projects = projects; }
 
+    public void addProject(Project project) { this.projects.add(project); }
+
     public String getFullName() { return surname + " " + name; }
 
     @Override

@@ -9,7 +9,7 @@
         <property name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-31L8Q82\SQLEXPRESS;DatabaseName=KP;encrypt=true;trustServerCertificate=true;</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password">sa</property>
-        <property name="hibernate.connection.pool_size">1</property>
+        <property name="hibernate.connection.pool_size">20</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
         <property name="hibernate.current_session_context_class">thread</property>

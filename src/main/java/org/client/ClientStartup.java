@@ -20,20 +20,16 @@ public class ClientStartup extends Application {
     private static Stage stage;
 
     public static void main(String[] connectionAddress) {
-        System.out.println("start");
         try {
             Socket clientSocket = new Socket(connectionAddress[0], Integer.parseInt(connectionAddress[1]));
-            System.out.println("create socket: " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
 
             requestMapper.configure(in, out);
-
-            System.out.println("create request binder");
-
             tabMapper = new TabMapper();
-            launch(); // start() method invoking
+
+            launch();
 
             clientSocket.close();
         } catch (IOException e) {

@@ -14,8 +14,8 @@ import org.server.models.User;
 import java.io.IOException;
 import java.sql.Date;
 
-public class PersonalAccountController {
-    public static PersonalAccountController instance;
+public class PersonalAccountPageController {
+    public static PersonalAccountPageController instance;
     public Label title;
     public TextField nameField;
     public TextField surnameField;
@@ -35,10 +35,10 @@ public class PersonalAccountController {
 
         saveButton.setOnAction(this::saveUserData);
         exitButton.setOnAction(this::logout);
-        setUserPersonalData(ClientStartup.clientAuthorization.getUser());
+        reloadUserPage(ClientStartup.clientAuthorization.getUser());
     }
 
-    public void setUserPersonalData(User user) {
+    private void reloadUserPage(User user) {
         title.setText("Личный кабинет (" + user.getFullName() + ")");
         nameField.setText(user.getEmployee().getName());
         surnameField.setText(user.getEmployee().getSurname());
@@ -67,7 +67,7 @@ public class PersonalAccountController {
             ClientStartup.requestMapper.make(Request.updateUser, user);
             if (ClientStartup.requestMapper.receive()) {
                 ClientStartup.clientAuthorization.logIn(user.getLogin(), user.getPassword());
-                setUserPersonalData(user);
+                reloadUserPage(user);
             }
 
         } catch (Exception ignored) {}

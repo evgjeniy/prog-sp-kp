@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.Pane?>
 
-<Tab closable="false" text="Сотрудники" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.client.controllers.EmployeesController">
+<Tab closable="false" text="Сотрудники" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.client.controllers.EmployeesPageController">
    <content>
       <SplitPane dividerPositions="0.3" prefHeight="160.0" prefWidth="200.0">
          <items>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <TextField fx:id="searchField" onAction="#searchByName" promptText="Поиск" alignment="CENTER" >
+                  <TextField fx:id="searchField" onAction="#search" promptText="Поиск" alignment="CENTER" >
                      <font><Font size="14.0" /></font>
                   </TextField>
                   <ScrollPane VBox.vgrow="SOMETIMES">

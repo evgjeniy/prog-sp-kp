@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import org.client.ClientStartup;
 
 import java.io.IOException;
-public class LoginController {
+public class LoginPageController {
     public TextField loginField;
     public PasswordField passwordField;
 

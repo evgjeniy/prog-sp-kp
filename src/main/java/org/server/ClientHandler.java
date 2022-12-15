@@ -3,19 +3,14 @@ package org.server;
 import org.classes.Request;
 import org.server.services.ServerRequestBinder;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 
 public class ClientHandler implements Runnable {
-
     private final Socket clientSocket;
 
-    public ClientHandler(Socket clientSocket) {
-        this.clientSocket = clientSocket;
-    }
+    public ClientHandler(Socket clientSocket) { this.clientSocket = clientSocket; }
 
     @Override
     public void run() {

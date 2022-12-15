@@ -13,7 +13,8 @@ public class TabMapper {
     public enum TabKey {
         employeesPage("employeesPage.fxml"),
         personalAccountPage("personalAccount.fxml"),
-        projectsPage("projectsPage.fxml");
+        projectsPage("projectsPage.fxml"),
+        vacanciesPage("vacanciesPage.fxml");
 
         private final String value;
         public String getValue() { return this.value; }
@@ -23,7 +24,7 @@ public class TabMapper {
 
     private Dictionary<TabKey, Tab> tabs;
 
-    private void loadTabs() {
+    public void reloadTabs() {
         tabs = new Hashtable<>();
         try {
             tabs.put(TabKey.employeesPage, FXMLLoader.load(Objects.requireNonNull(
@@ -32,13 +33,15 @@ public class TabMapper {
                     ClientStartup.class.getResource(TabKey.personalAccountPage.getValue()))));
             tabs.put(TabKey.projectsPage, FXMLLoader.load(Objects.requireNonNull(
                     ClientStartup.class.getResource(TabKey.projectsPage.getValue()))));
+            tabs.put(TabKey.vacanciesPage, FXMLLoader.load(Objects.requireNonNull(
+                    ClientStartup.class.getResource(TabKey.vacanciesPage.getValue()))));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public Tab getTab(TabKey tabKey) {
-        if (tabs == null) loadTabs();
+        if (tabs == null) reloadTabs();
         return tabs.get(tabKey);
     }
 }

@@ -35,7 +35,8 @@
                   <MenuButton fx:id="roleButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="272.0" text="Уровень доступа">
                      <items>
                         <MenuItem onAction="#setRole" mnemonicParsing="false" text="Сотрудник" />
-                        <MenuItem onAction="#setRole" mnemonicParsing="false" text="Менеджер" />
+                        <MenuItem onAction="#setRole" mnemonicParsing="false" text="Проджект Менеджер" />
+                        <MenuItem onAction="#setRole" mnemonicParsing="false" text="HR Менеджер" />
                         <MenuItem onAction="#setRole" mnemonicParsing="false" text="Администратор" />
                      </items>
                   </MenuButton>

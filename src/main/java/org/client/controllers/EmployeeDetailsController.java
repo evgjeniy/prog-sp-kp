@@ -5,11 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.classes.Request;
-import org.client.ClientStartup;
 import org.client.services.ClientRequestBinder;
 import org.server.models.User;
-
-import java.io.IOException;
 
 public class EmployeeDetailsController {
     public static EmployeeDetailsController instance;
@@ -26,13 +23,7 @@ public class EmployeeDetailsController {
 
     public User currentUser;
 
-    @FXML
-    private void initialize() {
-        instance = this;
-
-        editButton.setOnAction(this::showEditPane);
-        fireButton.setOnAction(this::fireEmployee);
-    }
+    @FXML private void initialize() { instance = this; }
 
     public void setDetailsInfo(User user) {
         if (user == null) return;
@@ -53,12 +44,12 @@ public class EmployeeDetailsController {
         if (currentUser == null) return;
 
         try {
-            ClientRequestBinder.instance.make(Request.deleteById, currentUser.getId());
-            if (ClientRequestBinder.instance.receive()) EmployeesController.instance.reloadPage();
+            ClientRequestBinder.instance.make(Request.deleteUserById, currentUser.getId());
+            if (ClientRequestBinder.instance.receive()) EmployeesPageController.instance.reloadPage();
         } catch (Exception ignored) {}
     }
 
     public void showEditPane(ActionEvent actionEvent) {
-        EmployeesController.instance.showEditingPage();
+        EmployeesPageController.instance.showEditingPage();
     }
 }

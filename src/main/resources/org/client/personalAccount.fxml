@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Tab closable="false" text="Личный кабинет" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.client.controllers.PersonalAccountController">
+<Tab closable="false" text="Личный кабинет" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.client.controllers.PersonalAccountPageController">
    <content>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>

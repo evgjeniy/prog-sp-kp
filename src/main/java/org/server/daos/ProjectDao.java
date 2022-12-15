@@ -3,6 +3,7 @@ package org.server.daos;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.server.db_connection.DbSessionFactory;
+import org.server.models.Employee;
 import org.server.models.Project;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,24 +11,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class ProjectDao implements Dao<Project> {
+public class ProjectDao extends Dao<Project> {
     public ProjectDao() { get(); }
-
-    @Override
-    public boolean insert(Project project) {
-        boolean isAdded = false;
-        Session session = null;
-        try {
-            session = DbSessionFactory.getSessionFactory().openSession();
-            Transaction transaction = session.beginTransaction();
-            session.save(project);
-            transaction.commit();
-            session.close();
-            isAdded = true;
-        } catch (Exception e) { e.printStackTrace(); }
-        if (session != null) session.close();
-        return isAdded;
-    }
 
     @Override
     public boolean update(Project project) {
@@ -36,6 +21,8 @@ public class ProjectDao implements Dao<Project> {
         try {
             session = DbSessionFactory.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
+
+            for (Employee employee : project.getEmployees()) session.update(employee);
             session.update(project);
             transaction.commit();
             session.close();
@@ -43,22 +30,6 @@ public class ProjectDao implements Dao<Project> {
         } catch (Exception e) { e.printStackTrace(); }
         if (session != null) session.close();
         return isUpdated;
-    }
-
-    @Override
-    public boolean delete(int id) {
-        boolean isDeleted = false;
-        Session session = null;
-        try {
-            session = DbSessionFactory.getSessionFactory().openSession();
-            Transaction transaction = session.beginTransaction();
-            session.delete(get(id));
-            transaction.commit();
-            session.close();
-            isDeleted = true;
-        } catch (Exception e) { e.printStackTrace(); }
-        if (session != null) session.close();
-        return isDeleted;
     }
 
     @Override

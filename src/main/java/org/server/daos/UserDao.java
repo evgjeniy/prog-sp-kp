@@ -3,6 +3,7 @@ package org.server.daos;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.server.db_connection.DbSessionFactory;
+import org.server.models.Project;
 import org.server.models.User;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,7 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class UserDao implements Dao<User> {
+public class UserDao extends Dao<User> {
     public UserDao() { get(); }
 
     @Override
@@ -39,6 +40,8 @@ public class UserDao implements Dao<User> {
 
             session = DbSessionFactory.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
+
+            for (Project project : user.getEmployee().getProjects()) session.update(project);
             session.update(user.getEmployee());
             session.update(user);
             transaction.commit();

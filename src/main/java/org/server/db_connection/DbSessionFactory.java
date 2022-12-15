@@ -19,6 +19,8 @@ public class DbSessionFactory {
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Role.class);
             configuration.addAnnotatedClass(Employee.class);
+            configuration.addAnnotatedClass(Vacancy.class);
+            configuration.addAnnotatedClass(Candidate.class);
             // configuration.addAnnotatedClass(Model3.class);
 
             sessionFactory = configuration.buildSessionFactory(

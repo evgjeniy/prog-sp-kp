@@ -10,16 +10,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.classes.Request;
 import org.client.ClientStartup;
+import org.client.services.DataCollector;
 import org.server.models.User;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class EmployeesController {
-    public static EmployeesController instance;
+public class EmployeesPageController {
+    public static EmployeesPageController instance;
     public TextField searchField;
     public ListView<String> employeeListViews;
     public Pane rightPane;
@@ -33,44 +32,37 @@ public class EmployeesController {
     private void initialize() throws IOException, ClassNotFoundException {
         instance = this;
 
+        loadChildPages();
+        reloadPage();
+    }
+
+    private void loadChildPages() throws IOException {
         cachedDetailsBox = FXMLLoader.load(Objects.requireNonNull(
                 ClientStartup.class.getResource("employeeDetails.fxml")));
 
         cachedAddingBox = FXMLLoader.load(Objects.requireNonNull(
                 ClientStartup.class.getResource("employeeAdding.fxml")));
 
-        loadEmployees();
-        defaultSearch();
     }
 
     private void loadEmployees() throws IOException, ClassNotFoundException {
-        ClientStartup.requestMapper.make(Request.getAllClients);
-        ArrayList<User> users = ClientStartup.requestMapper.receive();
-
-        employeesListValues = FXCollections.observableList(users);
+        employeesListValues = FXCollections.observableList(DataCollector.getUsers());
     }
 
-    public void defaultSearch() {
-        ObservableList<String> fullNames = FXCollections.observableArrayList(
-                employeesListValues.stream().map(User::getFullName).collect(Collectors.toList()));
-
-        employeeListViews.setItems(fullNames);
-        if (employeesListValues.size() > 0) setDetails(employeesListValues.get(0));
+    public void search(String searchString) {
+        if (searchString.isBlank()) {
+            employeeListViews.setItems(FXCollections.observableList(employeesListValues.
+                    stream().map(User::getFullName).toList()));
+        } else {
+            employeeListViews.setItems(FXCollections.observableList(employeesListValues.
+                    stream().map(User::getFullName).filter(name -> name.contains(searchString)).toList()));
+        }
     }
 
-    public void searchByName(ActionEvent inputMethodEvent) {
-        String searchText = searchField.getText();
-        if (searchText.isBlank() || searchText.isEmpty()) { defaultSearch(); return; }
-
-        ObservableList<String> filteredFullNames = FXCollections.observableArrayList(employeesListValues.
-                stream().map(User::getFullName).filter(fullName -> fullName.contains(searchText)).
-                collect(Collectors.toList()));
-
-        employeeListViews.setItems(filteredFullNames);
-    }
+    public void search(ActionEvent inputMethodEvent) { search(searchField.getText()); }
 
     public void showDetailsInfo(MouseEvent mouseEvent) {
-        String searchable = employeeListViews.getSelectionModel().getSelectedItem();
+        String searchable = ((ListView<String>)mouseEvent.getSource()).getSelectionModel().getSelectedItem();
         if (searchable == null) return;
 
         List<User> result = employeesListValues.stream().filter(x -> x.getFullName().contains(searchable)).toList();
@@ -84,7 +76,7 @@ public class EmployeesController {
         EmployeeDetailsController.instance.setDetailsInfo(resultUser);
     }
 
-    public void showAddingPane(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+    public void showAddingPane(ActionEvent actionEvent) {
         rightPane.getChildren().clear();
         rightPane.getChildren().add(cachedAddingBox);
         EmployeeAddingController.instance.setAddingMode();
@@ -96,11 +88,11 @@ public class EmployeesController {
         EmployeeAddingController.instance.setEditingMode();
     }
 
-    public void reloadPage() throws IOException, ClassNotFoundException {
+    public void  reloadPage() throws IOException, ClassNotFoundException {
         loadEmployees();
-        defaultSearch();
 
-        Optional<User> optional = employeesListValues.stream().max(Comparator.comparingInt(User::getId));
-        optional.ifPresent(this::setDetails);
+        searchField.clear();
+        search(searchField.getText());
+        setDetails(employeesListValues.get(0));
     }
 }

@@ -29,9 +29,7 @@ public class EmployeeAddingController {
     public Role role;
 
     @FXML
-    public void initialize() {
-        instance = this;
-    }
+    public void initialize() { instance = this; }
 
     private User getUserFromFields() {
         User user = new User(loginField.getText(), passwordField.getText());
@@ -50,13 +48,17 @@ public class EmployeeAddingController {
                 role = new Role(1, "User");
                 roleButton.setText("Сотрудник");
             }
-            case "Администратор" -> {
-                role = new Role(2, "Admin");
-                roleButton.setText("Администратор");
-            }
-            case "Менеджер" -> {
-                role = new Role(3, "Manager");
+            case "Проджект Менеджер" -> {
+                role = new Role(2, "Project Manager");
                 roleButton.setText("Менеджер");
+            }
+            case "HR Менеджер" -> {
+                role = new Role(3, "HR Manager");
+                roleButton.setText("HR Менеджер");
+            }
+            case "Администратор" -> {
+                role = new Role(4, "Admin");
+                roleButton.setText("Администратор");
             }
         }
     }
@@ -81,7 +83,7 @@ public class EmployeeAddingController {
 
                 ClientRequestBinder.instance.make(Request.insertUser, getUserFromFields());
                 setAddingMode();
-                if (ClientRequestBinder.instance.receive()) EmployeesController.instance.reloadPage();
+                if (ClientRequestBinder.instance.receive()) EmployeesPageController.instance.reloadPage();
             } catch (IOException | ClassNotFoundException ignored) {}
         });
     }
@@ -109,7 +111,7 @@ public class EmployeeAddingController {
                 userToUpdate.setId(user.getId());
                 setAddingMode();
                 ClientRequestBinder.instance.make(Request.updateUser, userToUpdate);
-                if (ClientRequestBinder.instance.receive()) EmployeesController.instance.reloadPage();
+                if (ClientRequestBinder.instance.receive()) EmployeesPageController.instance.reloadPage();
             } catch (IOException | ClassNotFoundException ignored) {}
         });
     }

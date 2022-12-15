@@ -38,10 +38,10 @@
       </HBox>
       <HBox alignment="CENTER" spacing="50.0">
          <children>
-            <Button fx:id="editButton" mnemonicParsing="false" text="Редактировать" textAlignment="CENTER">
+            <Button fx:id="editButton" onAction="#showEditPane" mnemonicParsing="false" text="Редактировать" textAlignment="CENTER">
                <font><Font size="14.0" /></font>
             </Button>
-            <Button fx:id="fireButton" mnemonicParsing="false" text="Уволить" textAlignment="CENTER">
+            <Button fx:id="fireButton" onAction="#fireEmployee" mnemonicParsing="false" text="Уволить" textAlignment="CENTER">
                <font><Font size="14.0" /></font>
             </Button>
          </children>
