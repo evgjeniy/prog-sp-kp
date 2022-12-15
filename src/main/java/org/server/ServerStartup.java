@@ -12,11 +12,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerStartup {
-    public static final UserDao userDao = new UserDao();
-    public static final ProjectDao projectDao = new ProjectDao();
-    public static final VacancyDao vacancyDao = new VacancyDao();
-    public static final CandidateDao candidateDao = new CandidateDao();
-
     public static void main(String[] port) {
         Socket clientSocket = null;
         ServerSocket serverSocket = null;

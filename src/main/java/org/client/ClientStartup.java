@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.client.services.ClientAuthorization;
 import org.client.services.ClientRequestBinder;
-import org.client.services.TabMapper;
+import org.client.services.TabsLocator;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,8 +16,9 @@ import java.net.Socket;
 public class ClientStartup extends Application {
     public static final ClientAuthorization clientAuthorization = new ClientAuthorization();
     public static final ClientRequestBinder requestMapper = new ClientRequestBinder();
-    public static TabMapper tabMapper;
+    public static TabsLocator tabsLocator;
     private static Stage stage;
+    private static String startPageName = "login.fxml";
 
     public static void main(String[] connectionAddress) {
         try {
@@ -27,13 +28,14 @@ public class ClientStartup extends Application {
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
 
             requestMapper.configure(in, out);
-            tabMapper = new TabMapper();
+            tabsLocator = new TabsLocator();
 
             launch();
 
             clientSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            startPageName = "errorPage.fxml";
+            launch();
         }
     }
 
@@ -41,7 +43,7 @@ public class ClientStartup extends Application {
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
 
-        loadPage("login.fxml");
+        loadPage(startPageName);
 
         stage.setTitle("IT Management System");
         stage.setResizable(false);

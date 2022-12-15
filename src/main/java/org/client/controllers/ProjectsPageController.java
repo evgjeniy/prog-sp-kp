@@ -4,9 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.classes.Request;
 import org.client.ClientStartup;
@@ -32,6 +32,7 @@ public class ProjectsPageController {
     public TextField newTaskField;
     public VBox projectEmployees;
     public ComboBox<String> chooseEmployees;
+    public VBox leftVerticalBox;
 
     public static Project currentProject;
 
@@ -44,6 +45,13 @@ public class ProjectsPageController {
         loadProjects();
         search(searchField.getText());
         setDetailsInfo(allProjects.get(0));
+
+        if (ClientStartup.clientAuthorization.getUser().getRole().getName().equals("User")) {
+            int size = leftVerticalBox.getChildren().size();
+            leftVerticalBox.getChildren().remove(leftVerticalBox.getChildren().get(size - 1));
+            leftVerticalBox.getChildren().remove(leftVerticalBox.getChildren().get(size - 2));
+            leftVerticalBox.getChildren().remove(leftVerticalBox.getChildren().get(size - 3));
+        }
     }
 
     private void loadProjects() throws IOException, ClassNotFoundException {

@@ -42,4 +42,8 @@ public class CandidatePageController {
         try { Desktop.getDesktop().browse(new URI(candidateTestUrl.getText())); }
         catch (Exception ignored) {}
     }
+
+    public void applyCandidate(ActionEvent actionEvent) {
+
+    }
 }

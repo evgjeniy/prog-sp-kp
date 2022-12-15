@@ -5,11 +5,9 @@ import javafx.scene.control.Tab;
 import org.client.ClientStartup;
 
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.Objects;
+import java.util.*;
 
-public class TabMapper {
+public class TabsLocator {
     public enum TabKey {
         employeesPage("employeesPage.fxml"),
         personalAccountPage("personalAccount.fxml"),

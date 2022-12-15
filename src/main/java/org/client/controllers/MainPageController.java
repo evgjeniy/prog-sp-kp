@@ -3,7 +3,7 @@ package org.client.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import org.client.ClientStartup;
-import org.client.services.TabMapper;
+import org.client.services.TabsLocator;
 import org.server.models.User;
 
 public class MainPageController {
@@ -19,29 +19,27 @@ public class MainPageController {
         User currentUser = ClientStartup.clientAuthorization.getUser();
 
         mainTabPane.getTabs().clear();
-        ClientStartup.tabMapper.reloadTabs();
+        ClientStartup.tabsLocator.reloadTabs();
         switch (currentUser.getRole().getName()) {
-            case "User" -> {
-                addTab(TabMapper.TabKey.personalAccountPage);
-            }
-            case "Project Manager" -> {
-                addTab(TabMapper.TabKey.personalAccountPage);
-                addTab(TabMapper.TabKey.projectsPage);
+            case "User", "Project Manager" -> {
+                addTab(TabsLocator.TabKey.personalAccountPage);
+                addTab(TabsLocator.TabKey.projectsPage);
             }
             case "HR Manager" -> {
-                addTab(TabMapper.TabKey.personalAccountPage);
-                addTab(TabMapper.TabKey.vacanciesPage);
+                addTab(TabsLocator.TabKey.personalAccountPage);
+                addTab(TabsLocator.TabKey.employeesPage);
+                addTab(TabsLocator.TabKey.vacanciesPage);
             }
             case "Admin" -> {
-                addTab(TabMapper.TabKey.personalAccountPage);
-                addTab(TabMapper.TabKey.employeesPage);
-                addTab(TabMapper.TabKey.projectsPage);
-                addTab(TabMapper.TabKey.vacanciesPage);
+                addTab(TabsLocator.TabKey.personalAccountPage);
+                addTab(TabsLocator.TabKey.projectsPage);
+                addTab(TabsLocator.TabKey.employeesPage);
+                addTab(TabsLocator.TabKey.vacanciesPage);
             }
         }
     }
 
-    private void addTab(TabMapper.TabKey tabKey) {
-        mainTabPane.getTabs().add(ClientStartup.tabMapper.getTab(tabKey));
+    private void addTab(TabsLocator.TabKey tabKey) {
+        mainTabPane.getTabs().add(ClientStartup.tabsLocator.getTab(tabKey));
     }
 }

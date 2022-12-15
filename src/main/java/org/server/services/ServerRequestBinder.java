@@ -2,6 +2,10 @@ package org.server.services;
 
 import org.classes.Request;
 import org.server.ServerStartup;
+import org.server.daos.CandidateDao;
+import org.server.daos.ProjectDao;
+import org.server.daos.UserDao;
+import org.server.daos.VacancyDao;
 import org.server.models.Project;
 import org.server.models.User;
 
@@ -15,16 +19,21 @@ public class ServerRequestBinder {
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
 
+    public static final UserDao userDao = new UserDao();
+    public static final ProjectDao projectDao = new ProjectDao();
+    public static final VacancyDao vacancyDao = new VacancyDao();
+    public static final CandidateDao candidateDao = new CandidateDao();
+
     public ServerRequestBinder() {
         instance = this;
     }
 
     public void map(Request request) throws IOException, ClassNotFoundException {
         switch (request) {
-            case getAllUsers -> outputStream.writeObject(new ArrayList<>(ServerStartup.userDao.get()));
-            case getAllProjects -> outputStream.writeObject(new ArrayList<>(ServerStartup.projectDao.get()));
-            case getAllVacancies -> outputStream.writeObject(new ArrayList<>(ServerStartup.vacancyDao.get()));
-            case getAllCandidates -> outputStream.writeObject(new ArrayList<>(ServerStartup.candidateDao.get()));
+            case getAllUsers -> outputStream.writeObject(new ArrayList<>(userDao.get()));
+            case getAllProjects -> outputStream.writeObject(new ArrayList<>(projectDao.get()));
+            case getAllVacancies -> outputStream.writeObject(new ArrayList<>(vacancyDao.get()));
+            case getAllCandidates -> outputStream.writeObject(new ArrayList<>(candidateDao.get()));
 
             case login -> {
                 String[] form = ((String)inputStream.readObject()).split(";");
@@ -32,27 +41,27 @@ public class ServerRequestBinder {
             }
             case getUserById -> {
                 int id = (int) inputStream.readObject();
-                outputStream.writeObject(ServerStartup.userDao.get(id));
+                outputStream.writeObject(userDao.get(id));
             }
             case getUserByLogin -> {
                 String login = (String) inputStream.readObject();
-                outputStream.writeObject(ServerStartup.userDao.getByLogin(login));
+                outputStream.writeObject(userDao.getByLogin(login));
             }
             case insertUser -> {
                 User user = (User) inputStream.readObject();
-                outputStream.writeObject(ServerStartup.userDao.insert(user));
+                outputStream.writeObject(userDao.insert(user));
             }
             case deleteUserById -> {
                 int id = (int) inputStream.readObject();
-                outputStream.writeObject(ServerStartup.userDao.delete(id));
+                outputStream.writeObject(userDao.delete(id));
             }
             case updateUser -> {
                 User user = (User) inputStream.readObject();
-                outputStream.writeObject(ServerStartup.userDao.update(user));
+                outputStream.writeObject(userDao.update(user));
             }
             case updateProject -> {
                 Project project = (Project) inputStream.readObject();
-                outputStream.writeObject(ServerStartup.projectDao.update(project));
+                outputStream.writeObject(projectDao.update(project));
             }
         }
     }

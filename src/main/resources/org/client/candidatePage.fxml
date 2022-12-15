@@ -44,6 +44,7 @@
                         </AnchorPane>
                      </children>
                   </VBox>
+                  <Button onAction="#applyCandidate" mnemonicParsing="false" prefHeight="25.0" prefWidth="583.0" text="Принять заявку" />
                   <Button onAction="#rejectCandidate" mnemonicParsing="false" prefHeight="25.0" prefWidth="583.0" text="Отклонить заявку" />
                </children>
                <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>

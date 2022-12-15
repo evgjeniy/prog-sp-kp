@@ -6,7 +6,7 @@ import org.server.models.User;
 public class ServerAuthorization {
 
     public static User login(String login, String password) {
-        User dbUser = ServerStartup.userDao.getByLogin(login);
+        User dbUser = ServerRequestBinder.userDao.getByLogin(login);
         if (dbUser != null) {
             if (PasswordEncryptionService.checkPassword(password, dbUser.getPassword(), dbUser.getSalt())) {
                 return dbUser;
